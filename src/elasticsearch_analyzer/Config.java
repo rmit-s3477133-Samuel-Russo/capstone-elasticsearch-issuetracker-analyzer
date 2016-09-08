@@ -2,9 +2,7 @@ package elasticsearch_analyzer;
 
 public class Config {
 
-	
-	public static final String elasticsearch_Repository = "https://github.com/elastic/elasticsearch";
-	
-	public static final boolean only_Commits_with_merge = true;
+	public static final String git_OAuth = "4632ed7598221d6a99b34c3eaa5e851fd9fae79d";
+	public static final String git_Repository = "elastic/elasticsearch";
 	
 }
