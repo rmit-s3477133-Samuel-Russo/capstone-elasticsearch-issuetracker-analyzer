@@ -6,4 +6,6 @@ public class Config {
 	public static final String git_Repository = "elastic/elasticsearch";
 	public static final boolean git_AllIssues = true;
 	
+	public static final String csv_File = "output.csv";
+	
 }
