@@ -10,7 +10,7 @@ public class CSV {
 
 	public static CSV csv;
 	
-	public CSV getInstance() throws IOException{
+	public static CSV getInstance() throws IOException{
 		if (csv == null){
 			csv = new CSV();
 		}
