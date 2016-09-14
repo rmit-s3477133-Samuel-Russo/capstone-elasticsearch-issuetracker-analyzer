@@ -25,14 +25,15 @@ public class CSV {
 		csvOutput = new CsvWriter(new FileWriter(Config.csv_File, true), ',');
 		
 		if (!csvExists){
-			write("Issue Number", "Issue Title");
+			write("Issue Number", "Issue Title", "Commit ID");
 		}
 		
 	}
 	
-	public void write(String number, String title) throws IOException{
+	public void write(String number, String title, String commitID) throws IOException{
 		csvOutput.write(number);
 		csvOutput.write(title);
+		csvOutput.write(commitID);
 		csvOutput.endRecord();
 	}
 	

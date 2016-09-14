@@ -42,13 +42,12 @@ public class GitAccess {
 		    for(Iterator<Event> eventIndex = iEvents.iterator(); eventIndex.hasNext(); ){
 		    	Event.Smart eventItemFull = new Event.Smart(eventIndex.next());
 		    	if (!eventItemFull.json().isNull("commit_id")){
-		    		System.out.println(issueItemFull.title() + " - " + issueItemFull.number() + " - " + eventItemFull.url());
 		    		String commit_id = eventItemFull.json().getString("commit_id");
-		    		System.out.println(commit_id);
+		    		CSV.getInstance().write(String.valueOf(issueItemFull.number()), issueItemFull.title(), commit_id);
 		    	}
-		    }
-		    
+		    }  
 		}
+		CSV.getInstance().close();
 	}
 	
 }
