@@ -36,13 +36,9 @@ public class CSV {
 		}
 		
 	}
-	
-<<<<<<< HEAD
-	public void write(String number, String title, String commitID) throws IOException{
-=======
+
 	// method to write the strings to the CSV file for each record
-	public void write(String number, String title) throws IOException{
->>>>>>> af039599a017d920c189a722b2723333702ca295
+	public void write(String number, String title, String commitID) throws IOException{
 		csvOutput.write(number);
 		csvOutput.write(title);
 		csvOutput.write(commitID);
