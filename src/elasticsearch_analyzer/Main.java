@@ -1,14 +1,12 @@
 package elasticsearch_analyzer;
 
 import java.io.IOException;
-import java.util.Iterator;
-
-import com.jcabi.github.*;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+<<<<<<< HEAD
 		
 		// Creating a Github object using OAuth token from config class
 		Github github = new RtGithub(Config.git_OAuth);
@@ -33,6 +31,10 @@ public class Main {
 		    System.out.println(issueItemFull.title() + " - " + issueItemFull.number());
 		    
 		}
+=======
+		
+		GitAccess.getInstance().Search();
+>>>>>>> origin/master
 		
 	}
 
