@@ -3,13 +3,7 @@ package elasticsearch_analyzer;
 import java.io.IOException;
 import java.util.Iterator;
 
-import com.jcabi.github.Coordinates;
-import com.jcabi.github.Github;
-import com.jcabi.github.Issue;
-import com.jcabi.github.Issues;
-import com.jcabi.github.Repo;
-import com.jcabi.github.RtGithub;
-import com.jcabi.github.Search;
+import com.jcabi.github.*;
 
 public class GitAccess {
 
