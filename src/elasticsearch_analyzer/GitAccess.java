@@ -36,8 +36,16 @@ public class GitAccess {
 			Issue issumeItem = issueIndex.next();
 
 		    Issue.Smart issueItemFull = new Issue.Smart(issumeItem);
-
-		    System.out.println(issueItemFull.title() + " - " + issueItemFull.number());
+		    
+		    Iterable<Event> iEvents = issueItemFull.events();
+		    
+		    for(Iterator<Event> eventIndex = iEvents.iterator(); eventIndex.hasNext(); ){
+		    	Event.Smart eventItemFull = new Event.Smart(eventIndex.next());
+		    	if (eventItemFull.equals(Event.Smart.REFERENCED)){
+		    		//System.out.println(issueItemFull.title() + " - " + issueItemFull.number() + " - " + eventItemFull.url());
+		    		System.out.println("test");
+		    	}
+		    }
 		    
 		}
 	}
