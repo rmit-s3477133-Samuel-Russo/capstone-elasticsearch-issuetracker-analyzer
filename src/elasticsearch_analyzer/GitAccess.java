@@ -30,28 +30,29 @@ public class GitAccess {
 	
 	public void Search() throws IOException{
 		Iterable<Issue> iIssues = issues.search(Issues.Sort.UPDATED, Search.Order.DESC, Config.getQualifier());
-		int issuenumber = 0;
-		int eventrecord = 0;
-		int requestnumber = 0;
+		int pullnumber = 0;
+		int commitrecord = 0;
 		for(Iterator<Issue> issueIndex = iIssues.iterator(); issueIndex.hasNext(); ) {
 			
-			Issue issumeItem = issueIndex.next();
-
-		    Issue.Smart issueItemFull = new Issue.Smart(issumeItem);
+		    Issue.Smart issueItem = new Issue.Smart(issueIndex.next());
 		    
-		    Iterable<Event> iEvents = issueItemFull.events();
-		    System.out.println("Issue Number Processing - " + ++issuenumber);
-		    System.out.println("Request Number - " + ++requestnumber);
-		    for(Iterator<Event> eventIndex = iEvents.iterator(); eventIndex.hasNext(); ){
-		    	Event.Smart eventItemFull = new Event.Smart(eventIndex.next());
-		    	System.out.println("Request Number - " + ++requestnumber);
-		    	if (!eventItemFull.json().isNull("commit_id")){
-		    		String commit_id = eventItemFull.json().getString("commit_id");
-		    		CSV.getInstance().write(String.valueOf(issueItemFull.number()), issueItemFull.title(), commit_id);
-		    		System.out.println("Event Records Written - " + ++eventrecord);
+		    if(issueItem.isPull()){
+		    	Pull.Smart pullrequest = new Pull.Smart(issueItem.pull());   
+		    	System.out.println("Pull request Number Processing - " + ++pullnumber + " - " + pullrequest.number());
+		    	if (!pullrequest.isOpen()){
+		    		try{
+			    		String merge_commit_id = pullrequest.json().getString("merge_commit_sha");
+			    		System.out.println("Merge Commit Number Written - " + ++commitrecord + " - " + merge_commit_id);
+			    		CSV.getInstance().write(String.valueOf(pullrequest.number()), pullrequest.title(), merge_commit_id);
+			    		CSV.getInstance().close();
+		    		} catch (Exception e){
+		    			e.printStackTrace();
+		    			CSV.getInstance().close();
+		    			continue;
+		    		}
 		    	}
-		    }  
-		    CSV.getInstance().close();
+		    	
+		    }
 		}
 		
 	}
