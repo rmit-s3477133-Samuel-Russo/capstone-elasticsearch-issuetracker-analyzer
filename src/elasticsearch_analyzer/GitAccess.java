@@ -28,31 +28,38 @@ public class GitAccess {
 		issues = repository.issues();
 	}
 	
-	public void Search() throws IOException{
-		Iterable<Issue> iIssues = issues.search(Issues.Sort.UPDATED, Search.Order.DESC, Config.getQualifier());
+	public void Search(){
+		Iterable<Issue> iIssues = null;
+		try {
+			iIssues = issues.search(Issues.Sort.UPDATED, Search.Order.DESC, Config.getQualifier());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		int pullnumber = 0;
 		int commitrecord = 0;
 		for(Iterator<Issue> issueIndex = iIssues.iterator(); issueIndex.hasNext(); ) {
 			
-		    Issue.Smart issueItem = new Issue.Smart(issueIndex.next());
-		    
-		    if(issueItem.isPull()){
-		    	Pull.Smart pullrequest = new Pull.Smart(issueItem.pull());   
-		    	System.out.println("Pull request Number Processing - " + ++pullnumber + " - " + pullrequest.number());
-		    	if (!pullrequest.isOpen()){
-		    		try{
+			try {
+
+				Issue.Smart issueItem = new Issue.Smart(issueIndex.next());
+			    
+			    if(issueItem.isPull()){
+			    	Pull.Smart pullrequest = new Pull.Smart(issueItem.pull());   
+			    	System.out.println("Pull request Number Processing - " + ++pullnumber + " - " + pullrequest.number());
+			    	if (!pullrequest.isOpen()){
 			    		String merge_commit_id = pullrequest.json().getString("merge_commit_sha");
 			    		System.out.println("Merge Commit Number Written - " + ++commitrecord + " - " + merge_commit_id);
 			    		CSV.getInstance().write(String.valueOf(pullrequest.number()), pullrequest.title(), merge_commit_id);
 			    		CSV.getInstance().close();
-		    		} catch (Exception e){
-		    			e.printStackTrace();
-		    			CSV.getInstance().close();
-		    			continue;
-		    		}
-		    	}
-		    	
-		    }
+			    	}
+			    	
+			    }
+			} catch (Exception e){
+				e.printStackTrace();
+				continue;
+			}
+		    
 		}
 		
 	}
