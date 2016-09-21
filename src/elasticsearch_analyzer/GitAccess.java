@@ -1,7 +1,16 @@
 package elasticsearch_analyzer;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Iterator;
 
 import com.csvreader.CsvReader;
@@ -135,6 +144,53 @@ public class GitAccess {
 				
 				
 			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void PullDiff(){
+		try {
+			
+			CsvReader cv = new CsvReader("mergecommitshaismerged.csv");
+			int recordnumber = 0;
+			cv.readHeaders();
+			
+			while(cv.readRecord()){
+				String inum = cv.get("Issue Number");
+				
+				URL website = new URL("https://github.com/elastic/elasticsearch/pull/" + inum + ".diff");
+		        URLConnection connection = website.openConnection();
+		        BufferedReader in = new BufferedReader(
+		                                new InputStreamReader(
+		                                    connection.getInputStream()));
+
+		        StringBuilder response = new StringBuilder();
+		        String inputLine;
+
+		        while ((inputLine = in.readLine()) != null) 
+		            response.append(inputLine + "\r\n");
+
+		        in.close();
+		        
+		        File fileDir = new File(inum + ".txt");
+				
+				Writer out = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(fileDir), "UTF8"));
+				
+				out.append(response);
+				out.close();
+				
+				System.out.println("Written Record - " + ++recordnumber + " - " + inum);
+				
+			}
+
+			
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

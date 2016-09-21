@@ -11,6 +11,8 @@ public class Main {
 		GitAccess.getInstance().SearchIsMerged(); 
 		// Stage 3 - Required merge commit sha from event chain as older pull requests doesn't hold the correct merge commit sha that is visible from the API 
 		GitAccess.getInstance().SearchIsMergedRepairSha(); 
+		// Stage 4 - Obtain Git Diff from Remote Github Server - very efficient in comparison to Jgit & Bash/Powershell
+		GitAccess.getInstance().PullDiff();
 	}
 
 }
