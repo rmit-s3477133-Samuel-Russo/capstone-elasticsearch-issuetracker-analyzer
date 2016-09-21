@@ -157,7 +157,7 @@ public class GitAccess {
 	public void PullDiff(){
 		try {
 			
-			CsvReader cv = new CsvReader("mergecommitshaismerged.csv");
+			CsvReader cv = new CsvReader("mergecommitshaismergedfixed.csv");
 			int recordnumber = 0;
 			cv.readHeaders();
 			
