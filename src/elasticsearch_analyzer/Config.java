@@ -18,12 +18,19 @@ public class Config {
 	// CSV file output name
 	public static final String csv_File = "output.csv";
 	
+	// Method to get qualifier information
 	public static EnumMap<Qualifier, String> getQualifier(){
 		
+		// enumMap object
 		EnumMap<Issues.Qualifier,String> qualifiers = new EnumMap<Issues.Qualifier,String>(Issues.Qualifier.class);
+		
+		// qualifier for bug labels
 		qualifiers.put(Issues.Qualifier.LABELS, "bug");
+		
+		// qualifier for closed state
 		qualifiers.put(Issues.Qualifier.STATE, "closed");
 		
+		// return the qualifiers
 		return qualifiers;
 		
 	}
