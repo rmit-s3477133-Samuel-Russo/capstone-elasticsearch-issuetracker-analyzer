@@ -99,7 +99,7 @@ public class GitAccess {
 		
 	}
 	
-	// Method to merge the data into a csv file
+	// Method to seached pull requests for ones that are merged the data into a csv file
 	public void SearchIsMerged(){
 		try {
 			// CSV object with name
@@ -143,7 +143,7 @@ public class GitAccess {
 		}
 	}
 	
-	
+	// Required correct Sha for merge commits
 	public void SearchIsMergedRepairSha(){
 		try {
 			CsvReader cv = new CsvReader("mergecommitshaismerged.csv");
@@ -240,7 +240,7 @@ public class GitAccess {
 		}
 	}
 	
-	// Method to get summaries
+	// Method to get commit summaries
 	public void ObtainSummaries(){
 		try {
 			CsvReader cv = new CsvReader("mergecommitshaismergedfixed.csv");
